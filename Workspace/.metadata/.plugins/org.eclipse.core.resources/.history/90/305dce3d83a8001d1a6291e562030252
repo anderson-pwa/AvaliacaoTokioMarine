@@ -1,0 +1,40 @@
+package br.com.tokiomarine.service.impl;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.tokiomarine.DAO.OperacaoRepository;
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.service.IOperacaoService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class OperacaoServiceImpl implements IOperacaoService {
+
+
+
+		private final OperacaoRepository operacaoRepository;
+
+		@Transactional
+		public Operacao Salvar(Operacao operacao) {
+			try {
+				log.info("Encerrando Vigências");
+				operacaoDAO.encerrarVigencia(operacao.getOperacao());
+				log.info("Persistindo nova Operacao Vigente");
+				operacao.setOperacaoVigente(1);
+				operacao = operacaoDAO.save(operacao);
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return operacao;
+		}
+		
+		public List<Operacao> retornaOperacaoVigente(Agendamento agendamento) {
+			List<Operacao> listaOperacao = operacaoDAO.retornarOperacaoVigente(agendamento.getOperacao());
+			return listaOperacao;
+		}
+
+}

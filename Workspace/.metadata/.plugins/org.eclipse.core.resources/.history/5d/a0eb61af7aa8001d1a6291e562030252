@@ -1,0 +1,71 @@
+package br.com.tokiomarine.service.impl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.tokiomarine.DAO.IOperacaoDAO;
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.service.IOperacaoService;
+import br.com.tokiomarine.util.MotorCalculoUtil;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class OperacaoServiceImpl implements IOperacaoService {
+
+
+		@Autowired
+		IOperacaoDAO operacaoDAO;
+
+		@Transactional
+		public Operacao Salvar(Operacao operacao) {
+			try {
+				log.info("Encerrando Vigências");
+				operacaoDAO.encerrarVigencia(operacao.getOperacao(), operacao.getChave());
+				log.info("Persistindo nova Operacao Vigente");
+				operacao.setOperacaoVigente(1);
+				operacao = operacaoDAO.save(operacao);
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return operacao;
+		}
+		
+		public Operacao retornaOperacaoVigente(Agendamento agendamento) {
+			int prazo = MotorCalculoUtil.retornaPrazo(agendamento);
+			String tipo = "";
+			String operacaoAgendamento = agendamento.getOperacao();
+			Operacao operacao = new Operacao();
+			
+			if(agendamento.getOperacao().equals("C")) {
+				if(prazo > 10 && prazo <= 20) {
+					tipo = "1";
+				} else if(prazo > 20 && prazo <= 30) {
+					tipo = "2";
+				} else if(prazo > 30 && prazo <= 40) {
+					tipo = "3";
+				} else if(prazo > 40) {
+					tipo = "4";
+				}
+			} else if(agendamento.getOperacao().equals("D")) {
+				if(agendamento.getValorTransferencia() <= 1000) {
+					tipo = "A";
+				} else if(agendamento.getValorTransferencia() > 1000 && agendamento.getValorTransferencia() <= 2000) {
+					tipo = "B";
+				} else if(agendamento.getValorTransferencia() > 2000 ) {
+					tipo = "C";
+				}
+			}
+			
+			if(operacaoAgendamento.equals("D")) {
+				operacaoAgendamento = tipo;
+				tipo = "1";
+			}
+			
+			operacao = operacaoDAO.retornarOperacaoVigente(operacaoAgendamento, tipo);
+			
+			return operacao;
+		}
+
+}

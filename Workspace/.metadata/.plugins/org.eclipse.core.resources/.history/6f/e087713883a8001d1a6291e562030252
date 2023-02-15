@@ -1,0 +1,12 @@
+package br.com.tokiomarine.service;
+
+import java.util.List;
+
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.entity.Operacao;
+
+public interface IOperacaoService {
+
+	public Operacao Salvar(Operacao operacao);
+	public List<Operacao> retornaOperacaoVigente(Agendamento agendamento);
+}

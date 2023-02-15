@@ -1,0 +1,119 @@
+package br.com.tokiomarine.service;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.tokiomarine.DAO.AgendamentoRepository;
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.entity.RegraOperacao;
+import br.com.tokiomarine.util.MotorCalculoUtil.ServiceException;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class AgendamentoService {
+
+		private final AgendamentoRepository agendamentoRepository;
+		
+		@Autowired
+		private RegraOperacaoService regraOperacaoService;
+		
+		public AgendamentoService(AgendamentoRepository agendamentoRepository) {
+			this.agendamentoRepository = agendamentoRepository;
+		}
+
+		@Transactional
+		public Agendamento Salvar(Agendamento agendamento) {
+			try {
+				log.info("Calculando a Taxa do Agendamento");
+				//agendamento.setTaxaAplicada(MotorCalculoUtil.calcularTaxa(agendamento));
+				if(agendamento.getTaxaAplicada() > 0) {
+					agendamento = agendamentoRepository.save(agendamento);
+					log.info("ID: "+agendamento.getId()+" Taxa Aplicada: "+agendamento.getTaxaAplicada());
+				} else {
+					log.info("Taxa não calculada !");
+				}
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return agendamento;
+		}
+
+		public List<Agendamento> listar() {
+			log.info("Listando Agendamentos");	
+			return agendamentoRepository.findAll();
+		}
+		
+		public Double calcularTaxa(Agendamento agendamento) {
+			List<RegraOperacao> regrasOperacoes = regraOperacaoService.findByOperacao(agendamento.getOperacao());
+			String  operacao = agendamento.getOperacao().getNome();
+			Integer prazo = retornarPrazo(agendamento);
+			Double  valorTransferencia = agendamento.getValorTransferencia();
+			Double  taxa = 0d;
+			
+			switch( operacao ) {
+			case "A" : 
+				if(prazo == 0) {
+					taxa = retornarAjusteTaxa(agendamento, regrasOperacoes.get(0));
+				}
+				break;
+			case "B" :
+				if(prazo > 0 && prazo <= 10) {
+					taxa = regrasOperacoes.get(0).getJuros();
+				}
+				break;
+			case "C" :
+				for(RegraOperacao item : regrasOperacoes) {
+					if(prazo >= item.getPrazoFinal() && item.getPrazoFinal() > 0 ? prazo <= item.getPrazoFinal() : true) {
+						taxa = item.getJuros();
+					}
+				}
+			case "D" :
+				for(RegraOperacao item : regrasOperacoes) {
+					if(valorTransferencia >= item.getValorInicial() && item.getValorFinal() > 0 ? valorTransferencia <= item.getValorFinal() : true) {
+						taxa = item.getJuros();
+					}
+				}
+			}
+			return taxa;
+		}
+		
+		public Double retornarAjusteTaxa(Agendamento agendamento, RegraOperacao regrasOperacoes) {
+			Double taxa = 0d;
+			if(agendamento.getOperacao().getNome().equals("A")) {
+				if(regrasOperacoes.getTaxa() > 0) {
+					Double valorTaxa = agendamento.getValorTransferencia()*((regrasOperacoes.getJuros()/100)+1);
+					Double valorFinal = valorTaxa + regrasOperacoes.getTaxa();
+					taxa = (((valorFinal/agendamento.getValorTransferencia())-1)*100);					
+				}
+			}
+			return taxa;
+		}
+		
+		public static int retornarPrazo(Agendamento agendamento) {
+			LocalDate dataInicial = retornarLocaleData(agendamento.getDataAgendamento());
+			LocalDate dataFinal   = retornarLocaleData(agendamento.getDataTransferencia());
+
+	        Period period = Period.between(dataInicial, dataFinal);
+	        return period.getDays();
+		}
+		
+		public static LocalDate retornarLocaleData(String data) {
+			int ano = 0;
+			int mes = 0;
+			int dia = 0;
+			try {
+				ano  = Integer.valueOf(data.substring(6, 10));
+				mes = Integer.valueOf(data.substring(3,5));
+				dia   = Integer.valueOf(data.substring(0,2));
+			} catch (Exception e) {
+				String mensagem = "Erro-na-Conversão-da-Data ==> Utilize-o-Formato-dd/mm/yyy";
+				throw new ServiceException(mensagem, e);
+			}
+			return LocalDate.of(ano, mes, dia);
+		}
+}

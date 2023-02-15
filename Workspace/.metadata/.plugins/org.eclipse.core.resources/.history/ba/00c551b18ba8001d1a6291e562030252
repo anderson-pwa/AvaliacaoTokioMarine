@@ -1,0 +1,42 @@
+package br.com.tokiomarine.service;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.tokiomarine.DAO.AgendamentoRepository;
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.service.IAgendamentoService;
+import br.com.tokiomarine.util.MotorCalculoUtil;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class AgendamentoServiceImpl implements IAgendamentoService {
+
+		@Autowired
+		AgendamentoRepository agendamentoDAO;
+
+		@Transactional
+		public Agendamento Salvar(Agendamento agendamento) {
+			try {
+				log.info("Calculando a Taxa do Agendamento");
+				agendamento.setTaxaAplicada(MotorCalculoUtil.calcularTaxa(agendamento));
+				if(agendamento.getTaxaAplicada() > 0) {
+					agendamento = agendamentoDAO.save(agendamento);
+					log.info("ID: "+agendamento.getId()+" Taxa Aplicada: "+agendamento.getTaxaAplicada());
+				} else {
+					log.info("Taxa não calculada !");
+				}
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return agendamento;
+		}
+
+		public List<Agendamento> listar() {
+			log.info("Listando Agendamentos");	
+			return agendamentoDAO.findAll();
+		}
+}

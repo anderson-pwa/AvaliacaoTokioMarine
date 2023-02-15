@@ -1,0 +1,13 @@
+1675949277713	Copy compilation unit
+1675950418372	Copy compilation unit
+1675951569427	Rename type 'IAgendamentoDAO'
+1675951583994	Rename type 'IOperacaoDAO'
+1675951599988	Rename type 'IRegraOperacaoDAO'
+1675951705958	Delete element
+1675951718513	Rename package 'br.com.tokiomarine.service.impl'
+1675951737645	Rename type 'OperacaoServiceImpl'
+1675955344725	Rename type 'AgendamentoServiceImpl'
+1676000105289	Delete element
+1676000341236	Copy compilation unit
+1676002801550	Rename type 'TemplateApplication'
+1676010521864	Rename package 'br.com.tokiomarine.DAO'

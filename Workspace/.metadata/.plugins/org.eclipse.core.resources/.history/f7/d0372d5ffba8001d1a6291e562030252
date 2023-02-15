@@ -1,0 +1,26 @@
+package br.com.tokiomarine.entity;
+
+import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Table(name="operacao")
+@Entity
+@Data
+public class Operacao {
+	
+	@Id
+	@GeneratedValue
+	private Long 	id;
+
+	private String 	nome;
+	private Date 	vigenciaInicial;
+	private Date 	vigenciaFinal;
+	private String 	descricao;
+	private Integer vigente;
+	private String 	tipo;
+}

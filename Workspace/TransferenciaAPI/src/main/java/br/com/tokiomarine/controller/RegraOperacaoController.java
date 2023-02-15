@@ -1,0 +1,53 @@
+package br.com.tokiomarine.controller;
+
+import java.util.List;
+
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import br.com.tokiomarine.entity.RegraOperacao;
+import br.com.tokiomarine.service.RegraOperacaoService;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequestMapping("api/v1/regraoperacao")
+@Slf4j
+public class RegraOperacaoController {
+
+		@Autowired
+		private RegraOperacaoService regraOperacaoService;
+
+		@PostMapping(value="/salvar", consumes = "application/json", produces = "application/json")
+		public ResponseEntity<String> save(@RequestBody RegraOperacao regraOperacao) {
+			log.info("Início da Operação Salvar RegraOperacao");
+		    try {
+		    	regraOperacao = regraOperacaoService.salvar(regraOperacao);
+		    	return ResponseEntity.ok().build();
+		      } catch (ServiceException e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(e.getMessage());
+		      }
+		}
+		
+		@GetMapping("listar")
+		public ResponseEntity<List<RegraOperacao>> listAllFields() {
+			log.info("Início da Operação Listar");
+			List<RegraOperacao> regraOperacaoLista = regraOperacaoService.listar();
+			log.info("Final da Operação Listar");
+			return new ResponseEntity<>(regraOperacaoLista, HttpStatus.OK);
+		}
+		
+		@GetMapping("listarvigentes")
+		public ResponseEntity<List<RegraOperacao>> listAllVigentes() {
+			log.info("Início da Operação Listar Vigentes");
+			List<RegraOperacao> regraOperacaoLista = regraOperacaoService.listarVigentes();
+			log.info("Final da Operação Listar Vigentes");
+			return new ResponseEntity<>(regraOperacaoLista, HttpStatus.OK);
+		}
+}

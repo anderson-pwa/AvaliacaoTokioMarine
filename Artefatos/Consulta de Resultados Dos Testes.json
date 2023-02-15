@@ -1,0 +1,206 @@
+[
+	{
+		"id": 1,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 100.0,
+		"taxaAplicada": 6.0,
+		"dataTransferencia": "15/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 1,
+			"nome": "A",
+			"vigenciaInicial": "2023-02-15T03:20:19.378+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência no Mesmo Dia",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 2,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 100.0,
+		"taxaAplicada": 12.0,
+		"dataTransferencia": "25/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 2,
+			"nome": "B",
+			"vigenciaInicial": "2023-02-15T03:20:44.742+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência até 10 Dias",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 52,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 100.0,
+		"taxaAplicada": 8.2,
+		"dataTransferencia": "26/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 3,
+			"nome": "C",
+			"vigenciaInicial": "2023-02-15T03:20:55.681+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Regrassiva",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 53,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 100.0,
+		"taxaAplicada": 6.9,
+		"dataTransferencia": "08/03/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 3,
+			"nome": "C",
+			"vigenciaInicial": "2023-02-15T03:20:55.681+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Regrassiva",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 54,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 100.0,
+		"taxaAplicada": 4.7,
+		"dataTransferencia": "18/03/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 3,
+			"nome": "C",
+			"vigenciaInicial": "2023-02-15T03:20:55.681+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Regrassiva",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 55,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 100.0,
+		"taxaAplicada": 1.7,
+		"dataTransferencia": "28/03/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 3,
+			"nome": "C",
+			"vigenciaInicial": "2023-02-15T03:20:55.681+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Regrassiva",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 56,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 900.0,
+		"taxaAplicada": 3.33,
+		"dataTransferencia": "15/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 4,
+			"nome": "D",
+			"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Por Valor",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 57,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 900.0,
+		"taxaAplicada": 3.33,
+		"dataTransferencia": "15/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 4,
+			"nome": "D",
+			"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Por Valor",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 58,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 900.0,
+		"taxaAplicada": 3.33,
+		"dataTransferencia": "15/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 4,
+			"nome": "D",
+			"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Por Valor",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 59,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 1500.0,
+		"taxaAplicada": 12.0,
+		"dataTransferencia": "25/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 4,
+			"nome": "D",
+			"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Por Valor",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 1652,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 1500.0,
+		"taxaAplicada": 0.8,
+		"dataTransferencia": "25/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 4,
+			"nome": "D",
+			"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Por Valor",
+			"vigente": 1
+		}
+	},
+	{
+		"id": 1653,
+		"contaOrigem": "999999",
+		"contaDestino": "888888",
+		"valorTransferencia": 2500.0,
+		"taxaAplicada": 8.2,
+		"dataTransferencia": "26/02/2023",
+		"dataAgendamento": "15/02/2023",
+		"operacao": {
+			"id": 4,
+			"nome": "D",
+			"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+			"vigenciaFinal": null,
+			"descricao": "Transferência com Taxa Por Valor",
+			"vigente": 1
+		}
+	}
+]

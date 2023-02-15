@@ -1,0 +1,53 @@
+package br.com.tokiomarine.controller;
+
+import java.util.List;
+
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.service.AgendamentoService;
+import ch.qos.logback.core.status.Status;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequestMapping("api/v1/agendamento")
+@Slf4j
+public class AgendamentoController {
+
+		@Autowired
+		private AgendamentoService agendamentoService;
+
+		@GetMapping("listar")
+		public ResponseEntity<List<Agendamento>> listAllFields() {
+			log.info("Início da Operação Listar");
+			List<Agendamento> agendamentoLista = agendamentoService.listar();
+			log.info("Final da Operação Listar");
+			return new ResponseEntity<>(agendamentoLista, HttpStatus.OK);
+		}
+		
+		@PostMapping(value="/salvar", consumes = "application/json", produces = "application/json")
+		public ResponseEntity<String> save(@RequestBody Agendamento agendamento) {
+			log.info("Início da Operação Salvar");
+		    try {
+		    	agendamento = this.agendamentoService.Salvar(agendamento);
+		    	if(agendamento.getTaxaAplicada() > 0) {
+		    		log.info("Operação Salvar Concluída");
+		    		return ResponseEntity.ok().build();
+		    	} else {
+		    		log.info("Operação Salvar Não Concluída. Cálculo da Taxa Não Efetuado");
+		    		return ResponseEntity.status(Status.ERROR).build();
+		    	}
+		      } catch (ServiceException e) {
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+		            .body(e.getMessage());
+		      }
+		}
+}

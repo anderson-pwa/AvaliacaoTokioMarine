@@ -1,0 +1,16 @@
+package br.com.tokiomarine.service;
+
+import br.com.tokiomarine.DAO.RegraOperacaoRepository;
+
+public class RegraOperacaoService {
+	
+	private final RegraOperacaoRepository regraOperacaoRepository;
+	
+	public RegraOperacaoService(RegraOperacaoRepository regraOperacaoRepository) {
+		this.regraOperacaoRepository = regraOperacaoRepository;
+	}
+	
+	
+	
+
+}

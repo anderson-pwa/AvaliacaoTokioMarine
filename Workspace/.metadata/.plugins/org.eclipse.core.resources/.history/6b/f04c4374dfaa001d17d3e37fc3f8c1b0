@@ -1,0 +1,78 @@
+package br.com.tokiomarine.service;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.entity.RegraOperacao;
+import br.com.tokiomarine.repository.OperacaoRepository;
+import br.com.tokiomarine.repository.RegraOperacaoRepository;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class OperacaoService {
+
+		@Autowired
+		private OperacaoRepository operacaoRepository;
+		
+		@Autowired
+		private RegraOperacaoRepository regraOperacaoRepository;
+		
+		@Transactional
+		public Operacao Salvar(Operacao operacao) {
+			try {
+				log.info("Encerrando Vigências");
+				encerrarVigenciaOperacao(operacao.getNome());
+				log.info("Persistindo nova Operacao Vigente");
+				iniciarVigenciaOperacao(operacao);
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return operacao;
+		}
+		
+		public List<Operacao> listar() {
+			return operacaoRepository.findAll();
+		}
+		
+		public void iniciarVigenciaOperacao(Operacao operacao) {
+			operacao.setVigente(1);
+			operacao.setVigenciaInicial(new Date());
+			operacao = operacaoRepository.save(operacao);
+			
+			List<RegraOperacao> regrasOperacoes = regraOperacaoRepository.findByOperacaoVigenteIsTrue();
+			
+			for(RegraOperacao item : regrasOperacoes) {
+				if(item.getOperacaoSecundaria().getNome().equals(operacao.getNome())) {
+					item.setOperacaoSecundaria(operacao);
+					regraOperacaoRepository.save(item);
+				}
+			}
+		}
+		
+		public void encerrarVigenciaOperacao(String nome) {
+			List<Operacao> operacoes = operacaoRepository.findOperacoesByNomeAndVigente(nome, 1);
+			for(Operacao operacao : operacoes) {
+				operacao.setVigente(0);
+				operacao.setVigenciaFinal(new Date());
+				operacaoRepository.save(operacao);
+			}
+		}
+		
+		public List<Operacao> retornaOperacoesVigente(String nome) {
+			return operacaoRepository.findOperacoesByNomeAndVigente(nome, 1);
+		}
+		
+		public Operacao retornaOperacaoVigente(String Nome) {
+			return operacaoRepository.findByNomeAndVigenteIsTrue(Nome);
+		}
+		
+		public List<Operacao> listarVigentes() {
+			return operacaoRepository.findByVigenteIsTrue();
+		}
+
+}

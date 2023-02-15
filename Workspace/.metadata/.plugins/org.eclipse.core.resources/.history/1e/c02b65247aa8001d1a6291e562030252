@@ -1,0 +1,14 @@
+package br.com.tokiomarine.DAO;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import br.com.tokiomarine.entity.Operacao;
+
+public interface IOperacaoDAO extends JpaRepository<Operacao, Long> {
+
+	@Query("select o from Operacao o where o.vigente = 1 and o.operacao = ? and o.tipo = ? ")
+	public Operacao retornarOperacaoVigente(String operacao, String tipo);
+	
+	@Query("update Operacao o set o.vigencia = 0 where o.operacao = ? and o.tipo=? ")
+	public void encerrarVigencia(String operacao, String tipo);
+}

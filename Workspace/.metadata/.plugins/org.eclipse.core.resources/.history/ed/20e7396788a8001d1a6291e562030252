@@ -1,0 +1,12 @@
+package br.com.tokiomarine.DAO;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.tokiomarine.entity.Operacao;
+
+public interface OperacaoRepository extends JpaRepository<Operacao, Long> {
+
+	List<Operacao> findOperacoesByOperacaoAndVigente(String operacao, Integer vigente);
+}

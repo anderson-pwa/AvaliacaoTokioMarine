@@ -1,0 +1,283 @@
+
+Operações
+
+
+{
+  "id": 0,
+  "nome": "A",
+  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+  "vigenciaFinal": "",
+  "descricao": "Transferência no Mesmo Dia",
+  "vigente": 1
+}
+
+{
+  "id": 0,
+  "nome": "B",
+  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+  "vigenciaFinal": "",
+  "descricao": "Transferência até 10 Dias",
+  "vigente": 1
+}
+
+{
+  "id": 0,
+  "nome": "C",
+  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+  "vigenciaFinal": "",
+  "descricao": "Transferência com Taxa Regrassiva",
+  "vigente": 1
+}
+
+{
+  "id": 0,
+  "nome": "D",
+  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+  "vigenciaFinal": "",
+  "descricao": "Transferência com Taxa Por Valor",
+  "vigente": 1
+}
+
+Regra De Operação
+
+Tipo (A)
+
+{
+  "id": 0,
+  "operacao": {
+		"id": 1,
+		"nome": "A",
+		"vigenciaInicial": "2023-02-15T03:20:19.378+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência no Mesmo Dia",
+		"vigente": 1
+	},
+  "prazoInicial": 0,
+  "prazoFinal": 0,
+  "valorInicial": 0,
+  "valorFinal": 0,
+  "taxa": 3,
+  "juros": 3,
+  "operacaoSecundaria": {
+		"id": 1,
+		"nome": "A",
+		"vigenciaInicial": "2023-02-15T03:20:19.378+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência no Mesmo Dia",
+		"vigente": 1
+	}
+}
+
+Tipo (B)
+
+{
+  "id": 0,
+	  "operacao": {
+	  "id": 2,
+	  "nome": "B",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência até 10 Dias",
+	  "vigente": 1
+	},
+  "prazoInicial": 0,
+  "prazoFinal": 10,
+  "valorInicial": 0,
+  "valorFinal": 0,
+  "taxa": 12,
+  "juros": 0,
+  "operacaoSecundaria": {
+	  "id": 2,
+	  "nome": "B",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência até 10 Dias",
+	  "vigente": 1
+	}
+}
+
+Tipo (C)
+
+{
+  "id": 0,
+	  "operacao": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	},
+  "prazoInicial": 11,
+  "prazoFinal": 20,
+  "valorInicial": 0,
+  "valorFinal": 0,
+  "taxa": 0,
+  "juros": 8.2,
+  "operacaoSecundaria": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	}
+}
+
+{
+  "id": 0,
+	  "operacao": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	},
+  "prazoInicial": 21,
+  "prazoFinal": 30,
+  "valorInicial": 0,
+  "valorFinal": 0,
+  "taxa": 0,
+  "juros": 6.9,
+  "operacaoSecundaria": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	}
+}
+
+{
+  "id": 0,
+	  "operacao": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	},
+  "prazoInicial": 31,
+  "prazoFinal": 40,
+  "valorInicial": 0,
+  "valorFinal": 0,
+  "taxa": 0,
+  "juros": 4.7,
+  "operacaoSecundaria": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	}
+}
+
+{
+  "id": 0,
+	  "operacao": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	},
+  "prazoInicial": 41,
+  "prazoFinal": 0,
+  "valorInicial": 0,
+  "valorFinal": 0,
+  "taxa": 0,
+  "juros": 1.7,
+  "operacaoSecundaria": {
+	  "id": 3,
+	  "nome": "C",
+	  "vigenciaInicial": "2023-02-15T03:13:09.460Z",
+	  "vigenciaFinal": "",
+	  "descricao": "Transferência com Taxa Regressiva",
+	  "vigente": 1
+	}
+}
+
+Tipo (D)
+
+{
+  "id": 0,
+	  "operacao": {
+		"id": 4,
+		"nome": "D",
+		"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência com Taxa Por Valor",
+		"vigente": 1
+	},
+  "prazoInicial": 41,
+  "prazoFinal": 0,
+  "valorInicial": 0,
+  "valorFinal": 1000,
+  "taxa": 0,
+  "juros": 0,
+  "operacaoSecundaria": {
+		"id": 1,
+		"nome": "A",
+		"vigenciaInicial": "2023-02-15T03:20:19.378+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência no Mesmo Dia",
+		"vigente": 1
+	}
+}
+
+{
+  "id": 0,
+	  "operacao": {
+		"id": 4,
+		"nome": "D",
+		"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência com Taxa Por Valor",
+		"vigente": 1
+	},
+  "prazoInicial": 41,
+  "prazoFinal": 0,
+  "valorInicial": 1001,
+  "valorFinal": 2000,
+  "taxa": 0,
+  "juros": 0,
+  "operacaoSecundaria": {
+		"id": 2,
+		"nome": "B",
+		"vigenciaInicial": "2023-02-15T03:20:44.742+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência até 10 Dias",
+		"vigente": 1
+	}
+}
+
+{
+  "id": 0,
+	  "operacao": {
+		"id": 4,
+		"nome": "D",
+		"vigenciaInicial": "2023-02-15T03:21:05.242+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência com Taxa Por Valor",
+		"vigente": 1
+	},
+  "prazoInicial": 41,
+  "prazoFinal": 0,
+  "valorInicial": 2001,
+  "valorFinal": 0,
+  "taxa": 0,
+  "juros": 0,
+  "operacaoSecundaria": {
+		"id": 3,
+		"nome": "C",
+		"vigenciaInicial": "2023-02-15T03:20:55.681+00:00",
+		"vigenciaFinal": null,
+		"descricao": "Transferência com Taxa Regressiva",
+		"vigente": 1
+	}
+}

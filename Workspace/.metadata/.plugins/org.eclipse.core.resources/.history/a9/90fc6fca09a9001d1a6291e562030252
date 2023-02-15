@@ -1,0 +1,45 @@
+package br.com.tokiomarine.service;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.tokiomarine.DAO.RegraOperacaoRepository;
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.entity.RegraOperacao;
+
+public class RegraOperacaoService {
+	
+	@Autowired
+	private RegraOperacaoRepository regraOperacaoRepository;
+	
+	public List<RegraOperacao> findByOperacao(Operacao operacao) {
+		return regraOperacaoRepository.findByOperacao(operacao);
+	}
+	
+	public RegraOperacao salvar(RegraOperacao regraOperacao) {
+		return regraOperacaoRepository.save(regraOperacao);
+	}
+	
+	public List<RegraOperacao> listar() {
+		return regraOperacaoRepository.findAll();
+	}
+	
+//	public void iniciarVigenciaOperacao(RegraOperacao regraOperacao) {
+//		regraOperacao.setVigente(1);
+//		regraOperacao.setVigenciaInicial(new Date());
+//		regraOperacaoRepository.save(regraOperacao);
+//	}
+//	
+//	public void encerrarVigenciaOperacao(String nome) {
+//		List<RegraOperacao> regraOperacoes = regraOperacaoRepository.findOperacoesByNomeAndVigente(nome, 1);
+//		for(RegraOperacao regraOperacao : regraOperacoes) {
+//			regraOperacao.setVigente(0);
+//			regraOperacao.setVigenciaFinal(new Date());
+//			regraOperacaoRepository.save(regraOperacao);
+//		}
+//	}
+	
+
+}

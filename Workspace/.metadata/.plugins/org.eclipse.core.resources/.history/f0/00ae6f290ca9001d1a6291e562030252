@@ -1,0 +1,14 @@
+package br.com.tokiomarine.DAO;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.entity.RegraOperacao;
+
+public interface RegraOperacaoRepository extends JpaRepository<RegraOperacao, Long> {
+	List<RegraOperacao> findByOperacao(Operacao operacao);
+    List<RegraOperacao> findByVigenteIsTrue();
+	
+}

@@ -1,0 +1,15 @@
+package br.com.tokiomarine.DAO;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import br.com.tokiomarine.entity.Operacao;
+
+public interface IOperacaoDAO extends JpaRepository<Operacao, Long> {
+
+	List<Operacao> findByOperacao(Operacao operacao);
+	List<Operacao> findBy
+	
+}

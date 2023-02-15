@@ -1,0 +1,10 @@
+package br.com.tokiomarine.DAO;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.tokiomarine.entity.Operacao;
+
+public interface IOperacaoDAO extends JpaRepository<Operacao, Long> {
+
+	
+}

@@ -1,0 +1,34 @@
+package br.com.tokiomarine.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Table(name="operacao")
+@Entity
+@Data
+public class RegraOperacao {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name="operacao_id", nullable=false)
+	private Operacao 	operacao;
+	
+	private Integer		prazoInicial;
+	private Integer		prazoFinal;
+	private Double		valorInicial;
+	private Double		valorFinal;
+	private Double		taxa;
+	private Double		juros;
+	
+	@ManyToOne
+	@JoinColumn(name="operacaoSecundaria_id", nullable=false)
+	private Operacao	operacaoSecundaria;
+}

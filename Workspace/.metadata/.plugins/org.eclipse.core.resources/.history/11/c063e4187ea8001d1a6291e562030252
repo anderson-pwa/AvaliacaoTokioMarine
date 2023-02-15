@@ -1,0 +1,21 @@
+package br.com.tokiomarine.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Table(name="operacao")
+@Entity
+@Data
+public class RegraOperacao {
+	
+	@Id
+	private String 	operacao;
+	private String 	descricao;
+	@JsonIgnore
+	private Integer operacaoVigente;
+	private String 	tipo;
+}

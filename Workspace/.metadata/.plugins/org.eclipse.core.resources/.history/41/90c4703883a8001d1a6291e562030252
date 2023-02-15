@@ -1,0 +1,11 @@
+package br.com.tokiomarine.service;
+
+import java.util.List;
+
+import br.com.tokiomarine.entity.Agendamento;
+
+public interface IAgendamentoService {
+
+	public Agendamento Salvar(Agendamento agendamento);
+	public List<Agendamento> listar();
+}

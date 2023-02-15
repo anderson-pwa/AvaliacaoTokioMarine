@@ -1,0 +1,102 @@
+package br.com.tokiomarine.util;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.service.IOperacaoService;
+
+public class MotorCalculoUtil {
+	
+
+	private static 
+	
+	
+	
+	
+	
+	public static Operacao retornaOperacao(Agendamento agendamento) {
+		List<Operacao> listaOperacao = operacaoService.retornaOperacaoVigente(agendamento);
+		Operacao operacaoSelecionada = new Operacao();
+		if(listaOperacao.get(0).getTipo().equals("Operacao")) {
+			operacaoSelecionada = 
+		}
+		
+		
+		
+		
+		return new Operacao();
+	}
+	
+	
+	
+	
+	
+	public static Double calcularTaxa(Agendamento agendamento) {
+		Double taxa = 0D;
+		taxa = ajusteTaxa(agendamento);
+		return taxa;
+	}
+	
+	
+	
+	public static HashMap<String, Double> retornaParametroCalculo(Agendamento agendamento ) {
+		HashMap<String, Double> parametroCalculo = new HashMap<String, Double>();
+		
+		int prazo = retornaPrazo(agendamento);
+		
+		Double taxa = 0D;
+		Double adicional = SEMADICIONAL;
+		String operacaoAgendamento = agendamento.getOperacao();
+
+		
+		switch (operacaoAgendamento) {
+		case "A" :
+			if(prazo == 0) {
+				taxa = operacaoService.retornaOperacaoVigente(agendamento);
+				adicional = ADICIONAL;
+			}
+			break;
+		case "B" :
+			if(prazo > 0 && prazo <= 10) {
+				taxa = mapTaxa.get("B");
+			}
+			break;
+		case "C" :
+			taxa = retornaTaxaOperacaoC(agendamento);
+			break;
+		case "D" :
+			if(agendamento.getValorTransferencia() <= 1000 ) {
+				taxa = mapTaxa.get("A");
+			} else if(agendamento.getValorTransferencia() > 1000 && agendamento.getValorTransferencia() <= 2000) {
+				taxa = mapTaxa.get("B");
+			} else if(agendamento.getValorTransferencia() > 2000) {
+				taxa = retornaTaxaOperacaoC(agendamento);
+			}
+			break;
+		
+		}
+		
+		parametroCalculo.put("taxa", taxa);
+		parametroCalculo.put("adicional", adicional);
+		
+		return parametroCalculo;
+	}
+	
+
+	
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public static class ServiceException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+		public ServiceException(String message, Throwable cause) {
+		    super(message, cause);
+		  }
+	}
+}

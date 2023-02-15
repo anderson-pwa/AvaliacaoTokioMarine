@@ -1,0 +1,62 @@
+package br.com.tokiomarine.service;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.repository.OperacaoRepository;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class OperacaoService {
+
+		private final OperacaoRepository operacaoRepository;
+		
+		public OperacaoService(OperacaoRepository operacaoRepository) {
+			this.operacaoRepository = operacaoRepository;
+		}
+
+		@Transactional
+		public Operacao Salvar(Operacao operacao) {
+			try {
+				log.info("Encerrando Vigências");
+				encerrarVigenciaOperacao(operacao.getNome());
+				log.info("Persistindo nova Operacao Vigente");
+				iniciarVigenciaOperacao(operacao);
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return operacao;
+		}
+		
+		public List<Operacao> listar() {
+			return operacaoRepository.findAll();
+		}
+		
+		public void iniciarVigenciaOperacao(Operacao operacao) {
+			operacao.setVigente(1);
+			operacao.setVigenciaInicial(new Date());
+			operacaoRepository.save(operacao);
+		}
+		
+		public void encerrarVigenciaOperacao(String nome) {
+			List<Operacao> operacoes = operacaoRepository.findOperacoesByNomeAndVigente(nome, 1);
+			for(Operacao operacao : operacoes) {
+				operacao.setVigente(0);
+				operacao.setVigenciaFinal(new Date());
+				operacaoRepository.save(operacao);
+			}
+		}
+		
+		public List<Operacao> retornaOperacaoVigente(String nome) {
+			return operacaoRepository.findOperacoesByNomeAndVigente(nome, 1);
+		}
+		
+		public List<Operacao> listarVigentes() {
+			return operacaoRepository.findByOperacaoVigente();
+		}
+
+}

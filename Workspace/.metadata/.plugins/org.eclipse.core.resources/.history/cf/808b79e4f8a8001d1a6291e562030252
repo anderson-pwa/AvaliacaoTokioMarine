@@ -1,0 +1,27 @@
+package br.com.tokiomarine.service;
+
+import java.util.List;
+
+import br.com.tokiomarine.DAO.RegraOperacaoRepository;
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.entity.RegraOperacao;
+
+public class RegraOperacaoService {
+	
+	
+	private final RegraOperacaoRepository regraOperacaoRepository;
+	
+	public RegraOperacaoService(RegraOperacaoRepository regraOperacaoRepository) {
+		this.regraOperacaoRepository = regraOperacaoRepository;
+	}
+	
+	public List<RegraOperacao> findByOperacao(Operacao operacao) {
+		return regraOperacaoRepository.findByOperacao(operacao);
+	}
+	
+	public RegraOperacao salvar(RegraOperacao regraOperacao) {
+		return regraOperacaoRepository.save(regraOperacao);
+	}
+	
+
+}

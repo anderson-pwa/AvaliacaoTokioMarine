@@ -1,0 +1,138 @@
+package br.com.tokiomarine.util;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import br.com.tokiomarine.entity.Agendamento;
+import br.com.tokiomarine.entity.Operacao;
+import br.com.tokiomarine.service.IOperacaoService;
+
+public class MotorCalculoUtil {
+	
+
+	private static 
+	
+	
+	
+	
+	
+	public static Operacao retornaOperacao(Agendamento agendamento) {
+		List<Operacao> listaOperacao = operacaoService.retornaOperacaoVigente(agendamento);
+		Operacao operacaoSelecionada = new Operacao();
+		if(listaOperacao.get(0).getTipo().equals("Operacao")) {
+			operacaoSelecionada = 
+		}
+		
+		
+		
+		
+		return new Operacao();
+	}
+	
+	
+	
+	
+	
+	public static Double calcularTaxa(Agendamento agendamento) {
+		Double taxa = 0D;
+		taxa = ajusteTaxa(agendamento);
+		return taxa;
+	}
+	
+	public static Double ajusteTaxa(Agendamento agendamento) {
+		HashMap<String, Double> parametroCalculo = new HashMap<String, Double>();
+		parametroCalculo = retornaParametroCalculo(agendamento);
+		Double taxa = 0D;
+		Double valorTaxa = 0D;
+		Double valorFinal = 0D;
+		
+		if(parametroCalculo.get("adicional") > 0) {
+			valorTaxa = agendamento.getValorTransferencia()*((parametroCalculo.get("taxa")/100)+1);
+			valorFinal = valorTaxa + parametroCalculo.get("adicional");
+			taxa = (((valorFinal/agendamento.getValorTransferencia())-1)*100);
+		} else {
+			taxa = parametroCalculo.get("taxa");
+		}
+		return taxa;
+	}
+	
+	public static HashMap<String, Double> retornaParametroCalculo(Agendamento agendamento ) {
+		HashMap<String, Double> parametroCalculo = new HashMap<String, Double>();
+		
+		int prazo = retornaPrazo(agendamento);
+		
+		Double taxa = 0D;
+		Double adicional = SEMADICIONAL;
+		String operacaoAgendamento = agendamento.getOperacao();
+
+		
+		switch (operacaoAgendamento) {
+		case "A" :
+			if(prazo == 0) {
+				taxa = operacaoService.retornaOperacaoVigente(agendamento);
+				adicional = ADICIONAL;
+			}
+			break;
+		case "B" :
+			if(prazo > 0 && prazo <= 10) {
+				taxa = mapTaxa.get("B");
+			}
+			break;
+		case "C" :
+			taxa = retornaTaxaOperacaoC(agendamento);
+			break;
+		case "D" :
+			if(agendamento.getValorTransferencia() <= 1000 ) {
+				taxa = mapTaxa.get("A");
+			} else if(agendamento.getValorTransferencia() > 1000 && agendamento.getValorTransferencia() <= 2000) {
+				taxa = mapTaxa.get("B");
+			} else if(agendamento.getValorTransferencia() > 2000) {
+				taxa = retornaTaxaOperacaoC(agendamento);
+			}
+			break;
+		
+		}
+		
+		parametroCalculo.put("taxa", taxa);
+		parametroCalculo.put("adicional", adicional);
+		
+		return parametroCalculo;
+	}
+	
+	public static int retornaPrazo(Agendamento agendamento) {
+		LocalDate dataInicial = retornaLocaleData(agendamento.getDataAgendamento());
+		LocalDate dataFinal   = retornaLocaleData(agendamento.getDataTransferencia());
+
+        Period period = Period.between(dataInicial, dataFinal);
+        return period.getDays();
+	}
+	
+	public static LocalDate retornaLocaleData(String data) {
+		int ano = 0;
+		int mes = 0;
+		int dia = 0;
+		try {
+			ano  = Integer.valueOf(data.substring(6, 10));
+			mes = Integer.valueOf(data.substring(3,5));
+			dia   = Integer.valueOf(data.substring(0,2));
+		} catch (Exception e) {
+			String mensagem = "Erro-na-Conversão-da-Data ==> Utilize-o-Formato-dd/mm/yyy";
+			throw new ServiceException(mensagem, e);
+		}
+		return LocalDate.of(ano, mes, dia);
+	}
+	
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public static class ServiceException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+		public ServiceException(String message, Throwable cause) {
+		    super(message, cause);
+		  }
+	}
+}
