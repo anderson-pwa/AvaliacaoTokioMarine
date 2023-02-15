@@ -27,11 +27,15 @@ Processo de Desenvolvimento
   Todos os artefatos, arquivos de cargas e evidências contidos no repositório.
   
   Para execução:
+  
     1 - Subir a API
+    
     2 - Instalar o Expo Cli
+    
     3 - Inicializar o front end com o Expo "Expo Start AppTokio"
    
  Prazo: O prazo foi extendido devido a contratempos particulares e curva de aprendizado.
+ 
         Vi a oportunidade de fazer no formato mobile e aproveitei para aprender o react native. 
       
  Agradeço a Oportunidade
