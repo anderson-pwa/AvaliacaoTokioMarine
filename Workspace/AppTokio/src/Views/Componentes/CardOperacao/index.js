@@ -17,4 +17,3 @@ export default function CardOperacao({ nome, descricao, onPress }){
   )
 } 
 
-aaaa

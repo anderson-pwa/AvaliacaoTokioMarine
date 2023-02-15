@@ -584,3 +584,7 @@
 2023-02-15 01:54:22,089 [Worker-56: Launching TransferenciaAPI - TransferenciaAPIApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
 2023-02-15 01:54:22,191 [Worker-56: Launching TransferenciaAPI - TransferenciaAPIApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
 2023-02-15 01:54:22,196 [Worker-56: Launching TransferenciaAPI - TransferenciaAPIApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TokioMarine\Workspace\TransferenciaAPI\src\test\resources
+2023-02-15 13:36:33,063 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-02-15 13:36:37,309 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-02-15 13:36:37,357 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-02-15 13:36:37,374 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Tokio2\Workspace\TransferenciaAPI\src\test\resources
